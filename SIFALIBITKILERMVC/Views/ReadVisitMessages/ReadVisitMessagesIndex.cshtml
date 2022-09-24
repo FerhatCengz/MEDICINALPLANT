@@ -1,0 +1,40 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@using SIFALIBITKILERMVC.Models.Entity
+@model IPagedList<VisitorMessages>
+@{
+    ViewBag.Title = "ReadVisitMessagesIndex";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<table class="table table-hover text-center mt-3 mb-3">
+    <thead class="table-dark">
+        <tr>
+            <th>Ziyaretçi İsmi</th>
+            <th>Ziyaretçi Mail</th>
+            <th>Ziyaretçi Message</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var visit in Model)
+        {
+            <tr>
+                <td>@visit.VisitorNameSurname</td>
+                <td>@visit.VisitorMail</td>
+                <td>@visit.VisitorMessage</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@{
+    PagedListRenderOptions styleCss = new PagedListRenderOptions();
+    styleCss.LinkToNextPageFormat = "İleri";
+    styleCss.LinkToPreviousPageFormat = "Geri";
+
+
+}
+<div class="d-flex justify-content-center">
+    @Html.PagedListPager(Model, sayfa => Url.Action("ReadVisitMessagesIndex", new { sayfa }), styleCss)
+</div>

@@ -1,0 +1,49 @@
+﻿@using SIFALIBITKILERMVC.Models.Entity
+@model SIFALIBITKILERMVC.Models.Entity.Plants
+@{
+    ViewBag.Title = "UpdatePlantIndex";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+}
+
+
+
+
+<link href="~/Content/DropzoneCss/dropzone.css" rel="stylesheet" />
+<link href="~/Content/DropzoneCss/basic.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.33/sweetalert2.css" integrity="sha512-e+TwvhjDvKqpzQLJ7zmtqqz+5jF9uIOa+5s1cishBRfmapg7mqcEzEl44ufb04BXOsEbccjHK9V0IVukORmO8w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<div class="container mt-5">
+    <h4 class="mt-4 text-center">Şifalı Bitkinizi Günceleyin</h4>
+    <form class="form-group m-5" method="post">
+        
+        <div class="row">
+
+            <div class="col-12">
+                <div class="row">
+
+                    <div class="col-lg-2">
+                        <img id="plantImage" class="rounded-circle ml-4 mb-2" src="@ViewBag.getPlantImage" width="150" height="150" />
+                    </div>
+                    <div class="col-lg-10">
+                        <div class="ml-2 dropzone border border-dark" id="mydropzone"></div>
+                        <div class=" d-flex justify-content-end mt-2 mb-2">
+                            <a id="btnDropzonePost" data-number="@ViewBag.returnId" class="btn btn-success">Fotoğrafı Güncelle</a>
+                        </div>
+                    </div>
+
+                </div>
+
+                @Html.TextBoxFor(x => x.PlantName, new { @class = "mt-2 mb-2 form-control", placeholder = "Bitkinin İsmini Giriniz", required = "required" })
+                @Html.TextAreaFor(x => x.PlantAbout, new { rows = "5", @class = "mt-2 mb-2 form-control", placeholder = "Bitki Hakkında Bilgilendirme Giriniz" })
+
+            </div>
+        </div>
+        <div class="d-flex justify-content-center">
+            <a id="sendBtnPlant" data-number="@ViewBag.returnId" class="btn btn-dark">Bitkiyi Ekle</a>
+        </div>
+    </form>
+
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.33/sweetalert2.min.js" integrity="sha512-cYg5I1IgQJ3PudSiA/J3W15Q2zkgB+bbv7aKm0GuSvIineIx7jsSTc+iXGu0AyJOvdI6vWJkvJe97bVF3POQHA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="module" src="~/Scripts/main.js?v1.1"></script>

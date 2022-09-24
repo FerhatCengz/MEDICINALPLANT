@@ -1,0 +1,99 @@
+﻿@*@model List<SIFALIBITKILERMVC.Models.Entity.Plants>*@
+@using PagedList
+@using PagedList.Mvc
+@model PagedList.IPagedList<SIFALIBITKILERMVC.Models.Entity.Plants>
+
+@{
+    ViewBag.Title = "IndexList";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.33/sweetalert2.css" integrity="sha512-e+TwvhjDvKqpzQLJ7zmtqqz+5jF9uIOa+5s1cishBRfmapg7mqcEzEl44ufb04BXOsEbccjHK9V0IVukORmO8w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<br />
+<br />
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Silme İşlemi Onayı</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="text-center font-weight-bold">Bu Bitkinin Silinmesini İstiyor musunuz ?</p>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hayır Silmekten Vazgeçtim </button>
+                <a id="sendBtnDeletePlant" class="btn btn-primary" data-dismiss="modal">Evet İstiyorum İşlemi Gerçekleştir</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<form class="form-group m-auto w-50" method="get">
+    <div class="input-group mb-3">
+        <button id="btnClearText" type="button" class="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <input id="searchText" name="SearchText" type="text" class="form-control ml-2" placeholder="Bitki İsmi Giriniz">
+        <div class="input-group-append">
+            <button class="input-group-text" id="btn_Search">Ara</button>
+        </div>
+    </div>
+</form>
+<table class="table table-hover text-center">
+    <thead class="table-dark">
+        <tr>
+            <th>Bitkinin Fotoğrafı</th>
+            <th>Bitkinin İsmi</th>
+            <th>Bitki Hakkında</th>
+            <th>İşlemler</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var plant in Model)
+        {
+            <tr>
+                <td>
+                    <img src="@plant.PlantImage" alt="Bitki Resmi" width="120" height="120" />
+                </td>
+                <td>@plant.PlantName</td>
+                <td>
+                    <p class="d-inline-block text-truncate" style="max-width: 300px;">
+                        @plant.PlantAbout
+                    </p>
+                </td>
+                <td>
+
+                    <div class="d-flex justify-content-around">
+                        <a href="~/UpdatePlant/UpdatePlantIndex/@plant.ID" class="btn btn-warning text-white">Güncelle</a>
+                        <a data-toggle="modal" href="#staticBackdrop" data-number="@plant.ID" class="btnRemove btn btn-danger">Sil</a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@{
+    PagedListRenderOptions styleCss = new PagedListRenderOptions();
+    styleCss.LinkToNextPageFormat = "İleri";
+    styleCss.LinkToPreviousPageFormat = "Geri";
+
+
+}
+<div class="d-flex justify-content-center">
+    @Html.PagedListPager(Model, sayfa => Url.Action("IndexList", new { sayfa }), styleCss)
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.33/sweetalert2.min.js" integrity="sha512-cYg5I1IgQJ3PudSiA/J3W15Q2zkgB+bbv7aKm0GuSvIineIx7jsSTc+iXGu0AyJOvdI6vWJkvJe97bVF3POQHA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="module" src="~/Scripts/main.js?v1.1"></script>
+
+
